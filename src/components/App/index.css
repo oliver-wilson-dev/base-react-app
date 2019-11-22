@@ -1,0 +1,34 @@
+/*******************************
+General
+*******************************/
+@import "../../styles/index.css";
+@import "../../styles/variables.css";
+
+
+.app {
+  background-attachment: fixed;
+  background-color: var(--primaryBackgroundColour);
+  color: var(--primaryTextColor);
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2em;
+  max-width: 100vw;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+@media (min-width: 0px) and (max-width: 767px) {
+  .sectionTitle {
+    font-size: 28px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .appContent {
+    box-shadow: 8px 8px 0px #0b0a0a;
+    border: 3px solid #0b0a0a;
+    margin: 20px auto;
+  }
+}
