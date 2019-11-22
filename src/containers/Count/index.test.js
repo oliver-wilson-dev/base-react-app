@@ -1,18 +1,18 @@
 import testReduxComponent from '../../../test/helpers/testConnectedComponent';
-import ConnectedApp from '.';
-import App from '../../components/App';
-import { getTheme } from '../../state/selectors';
+import ConnectedCount from '.';
+import Count from '../../components/Count';
+import { getCount } from '../../state/selectors';
 
 jest.mock('../../state/selectors');
 jest.mock('../../state/actions/toggleTheme');
-jest.mock('../../components/App', () => () => null);
+jest.mock('../../components/Count', () => () => null);
 
 const { testRender, testProp } = testReduxComponent(
-  ConnectedApp,
-  App
+  ConnectedCount,
+  Count
 );
 
-describe('connected App', () => {
+describe('connected Count', () => {
   testRender();
-  testProp('theme', getTheme);
+  testProp('count', getCount);
 });

@@ -1,21 +1,18 @@
 import testReduxComponent from '../../../test/helpers/testConnectedComponent';
-import ConnectedSections from '.';
-import Sections from '../../components/Sections';
-import fetchContent from '../../state/actions/fetchContent';
-import { getSections, getSectionsContentFetched } from '../../state/selectors';
+import ConnectedButton from '.';
+import Button from '../../components/Button';
+import incrementCount from '../../state/actions/incrementCount';
 
-jest.mock('../../state/actions/fetchContent');
+jest.mock('../../state/actions/incrementCount');
 jest.mock('../../state/selectors');
-jest.mock('../../components/Sections', () => () => null);
+jest.mock('../../components/Button', () => () => null);
 
-const { testRender, testAction, testProp } = testReduxComponent(
-  ConnectedSections,
-  Sections
+const { testRender, testAction } = testReduxComponent(
+  ConnectedButton,
+  Button
 );
 
-describe('connected DeleteButton', () => {
+describe('connected Button', () => {
   testRender();
-  testAction('fetchContent', fetchContent);
-  testProp('sections', getSections);
-  testProp('sectionsContentFetched', getSectionsContentFetched);
+  testAction('incrementCount', incrementCount);
 });
