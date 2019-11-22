@@ -6,10 +6,10 @@ import { getCount } from '../../state/selectors';
 jest.mock('../../state/selectors');
 jest.mock('../../components/Count', () => () => null);
 
-const { testRender, testProp } = testReduxComponent(
-  ConnectedCount,
-  Count
-);
+const { testRender, testProp } = testReduxComponent({
+  ConnectedComponent: ConnectedCount,
+  Component: Count
+});
 
 describe('connected Count', () => {
   testRender();

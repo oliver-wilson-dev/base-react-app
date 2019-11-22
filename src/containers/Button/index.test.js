@@ -7,10 +7,10 @@ jest.mock('../../state/actions/incrementCount');
 jest.mock('../../state/selectors');
 jest.mock('../../components/Button', () => () => null);
 
-const { testRender, testAction } = testReduxComponent(
-  ConnectedButton,
-  Button
-);
+const { testRender, testAction } = testReduxComponent({
+  ConnectedComponent: ConnectedButton,
+  Component: Button
+});
 
 describe('connected Button', () => {
   testRender();
