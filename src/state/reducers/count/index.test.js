@@ -1,67 +1,77 @@
 import themeReducer from '.';
-import { TOGGLE_THEME, LIGHT_THEME } from '../../actions/constants';
+import { INCREMENT_COUNT } from '../../actions/constants';
+import incrementCount from './reduceCases/incrementCount';
 import getInitialState from './getInitialState';
-import toggleTheme from './reduceCases/toggleTheme';
 
+jest.mock('./reduceCases/incrementCount');
 jest.mock('./getInitialState');
-jest.mock('./reduceCases/toggleTheme');
 
-describe('theme reducer', () => {
-  describe('when the action type is is TOGGLE_THEME', () => {
-    describe('and a state is provided', () => {
-      const toggleThemeCallback = jest.fn();
-      beforeEach(() => {
-        jest.clearAllMocks();
-        toggleTheme.mockReturnValueOnce(toggleThemeCallback);
+const mockInitialState = {
+  [Symbol('some-key')]: Symbol('some-value')
+};
+
+const mockIncrementCountCallback = jest.fn();
+
+describe('count reducer', () => {
+  beforeEach(() => {
+    getInitialState.mockReturnValueOnce(mockInitialState);
+    incrementCount.mockReturnValueOnce(mockIncrementCountCallback);
+    jest.clearAllMocks();
+  });
+
+
+  describe('when the action type is INCREMENT_COUNT', () => {
+    const incrementCountAction = {
+      type: INCREMENT_COUNT
+    };
+
+    describe('when there is no initialState', () => {
+      it('should call getInitialState', () => {
+        themeReducer(undefined, incrementCountAction);
+
+        expect(getInitialState).toHaveBeenCalled();
       });
 
+      it('should call the incrementCount reduce case with the current state', () => {
+        themeReducer(undefined, incrementCountAction);
 
-      it('should call toggleTheme', () => {
-        const state = { theme: LIGHT_THEME, someOtherProperty: 'some value' };
-
-        themeReducer(state, { type: TOGGLE_THEME });
-
-        expect(toggleTheme)
-          .toHaveBeenCalledWith({ state });
+        expect(incrementCount).toHaveBeenCalledWith({ state: mockInitialState });
       });
 
-      it('should call the toggleThemeCallback', () => {
-        const state = { theme: LIGHT_THEME, someOtherProperty: 'some value' };
-        themeReducer(state, { type: TOGGLE_THEME });
+      it('should call the incrementCount reduce case callback', () => {
+        themeReducer(undefined, incrementCountAction);
 
-        expect(toggleThemeCallback)
-          .toHaveBeenCalled();
+        expect(mockIncrementCountCallback).toHaveBeenCalled();
       });
     });
 
-    describe('and no state is provided', () => {
-      it('should call toggle theme with the result of getInitialState', () => {
-        const mockInitialState = Symbol('test-initial-state');
-        getInitialState.mockReturnValueOnce(mockInitialState);
-        toggleTheme.mockReturnValueOnce(jest.fn());
+    describe('when there is an initialState', () => {
+      const initialState = Symbol('test-initial-state');
+      it('should not call getInitialState', () => {
+        themeReducer(initialState, incrementCountAction);
 
-        themeReducer(undefined, { type: TOGGLE_THEME });
+        expect(getInitialState).not.toHaveBeenCalled();
+      });
 
-        expect(toggleTheme).toHaveBeenCalledWith({ state: mockInitialState });
+      it('should call the incrementCount reduce case with the current state', () => {
+        themeReducer(initialState, incrementCountAction);
+
+        expect(incrementCount).toHaveBeenCalledWith({ state: initialState });
       });
     });
   });
 
-  describe('when the action type is is not recognised', () => {
-    const action = { type: Symbol('some-other-action-type') };
-    describe('and a state is provided', () => {
-      it('should return state', () => {
-        const state = { theme: LIGHT_THEME, someOtherProperty: 'some value' };
-        expect(themeReducer(state, action)).toEqual(state);
+  describe('when the action type is not any of the predefined action types', () => {
+    describe('when no state is provided', () => {
+      it('should return the initial state', () => {
+        expect(themeReducer(undefined, { type: 'some-other-action' })).toBe(mockInitialState);
       });
     });
 
-    describe('and no state is provided', () => {
-      it('should return the default state, with the theme property LIGHT_THEME', () => {
-        const mockInitialState = Symbol('test-initial-state');
-        getInitialState.mockReturnValueOnce(mockInitialState);
-        toggleTheme.mockReturnValueOnce(jest.fn());
-        expect(themeReducer(undefined, action)).toEqual(mockInitialState);
+    describe('when state is provided', () => {
+      it('should return the initial state', () => {
+        const state = Symbol('test-state');
+        expect(themeReducer(state, { type: 'some-other-action' })).toBe(state);
       });
     });
   });
