@@ -1,7 +1,11 @@
 /*
-  Lovingly ripped-off from https://github.com/keyanzhang/identity-obj-proxy
-  Added benefit of being able to prototype values within tests to simulate
-  the @value export abilities of css modules.
+  The advice from Jest is to use an ES6 proxy to define how css modules should be interpreted.
+  https://jestjs.io/docs/en/webpack#mocking-css-modules
+
+  Jest recommends something similar to: https://github.com/keyz/identity-obj-proxy
+
+  This is required for rendering the correct classnames in snapshots,
+  otherwise jest does not understand css modules.
 */
 
 module.exports = new Proxy(

@@ -1,9 +1,5 @@
-/*******************************
-General
-*******************************/
 @import "../../styles/index.css";
 @import "../../styles/variables.css";
-
 
 .app {
   background-attachment: fixed;
@@ -19,16 +15,6 @@ General
   text-align: center;
 }
 
-@media (min-width: 0px) and (max-width: 767px) {
-  .sectionTitle {
-    font-size: 28px;
-  }
-}
+@media (min-width: 767px) and (max-width: 1023px) {}
 
-@media (min-width: 1024px) {
-  .appContent {
-    box-shadow: 8px 8px 0px #0b0a0a;
-    border: 3px solid #0b0a0a;
-    margin: 20px auto;
-  }
-}
+@media (min-width: 1024px) {}
