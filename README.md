@@ -14,6 +14,6 @@ This repository contains base configuration for `react`, `redux`, `postcss`, `we
 
 ## Babel
 
-## Jest
+## Jest
 
 ## Eslint
